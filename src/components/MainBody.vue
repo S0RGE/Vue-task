@@ -5,7 +5,7 @@
     }}</v-btn>
     <v-btn class="ma-3" @click="getData" dark v-if="data.length <= 0"
       >get data</v-btn
-    >
+    >    
     <v-btn class="ma-3" @click="resetData" dark v-else>reset data</v-btn>
     <div v-if="toggleCards">
       <Cards :data="sortedData" @closeCard="closeCard" />
@@ -22,6 +22,7 @@ import Tree from "./Tree.vue";
 // import TreeTest from "./TreeTest.vue";
 
 export default {
+  props: ["sort"],
   data() {
     return {
       toggleCards: false,
@@ -39,6 +40,16 @@ export default {
         this.toggleButtonText = "Tree to Card";
       }
     },
+    sortMethod(a, b) {
+      if (!this.sort) this.sort = "category";
+      if (a[this.sort] > b[this.sort]) {
+        return 1;
+      }
+      if (a[this.sort] < b[this.sort]) {
+        return -1;
+      }
+      return 0;
+    },
     closeCard(timestamp) {
       this.dataSort = this.sortedData.filter((el) => el.timestamp != timestamp);
     },
@@ -51,7 +62,9 @@ export default {
   },
   computed: {
     sortedData() {
-      return this.dataSort.length > 0 ? this.dataSort : this.data;
+      let data = this.dataSort.length > 0 ? this.dataSort : this.data;
+      console.log("data", this.sort, data);
+      return data.sort(this.sortMethod);
     },
   },
   components: {
@@ -60,6 +73,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("fetchDataAsync");
+    console.log("sort this", this.sort);
   },
 };
 </script>

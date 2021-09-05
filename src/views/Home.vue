@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <Header />
-    <MainBody />
+    <Header @SortItems="SortItems" />
+    <MainBody :sort="sort"/>
     <Footer />
   </v-app>
 </template>
@@ -13,6 +13,16 @@ import MainBody from "../components/MainBody.vue"
 
 export default {
   name: "Home",
+  data(){
+    return{
+      sort: "category"
+    }
+  },
+  methods:{
+    SortItems(item){
+      this.sort = item;
+    }
+  },
   components: {
     Footer,
     Header,

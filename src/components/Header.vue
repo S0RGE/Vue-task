@@ -19,14 +19,14 @@
 export default {
   data() {
     return {
-      keys: ["name", "date", "size"],
-      sortBy: "name",
+      keys: ["category", "timestamp", "filesize"],
+      sortBy: "category",
       data: [],
     };
   },
   methods: {
     sortSelect() {
-      console.log("sort", this.sortBy);
+      this.$emit("SortItems", this.sortBy)
     },
   },
 };
