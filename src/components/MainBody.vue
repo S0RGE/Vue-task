@@ -11,7 +11,7 @@
       <Cards :data="sortedData" @closeCard="closeCard" />
     </div>
     <div v-else>
-      <Tree />
+      <Tree :data="sortedData" />
     </div>
   </div>
 </template>

@@ -7,7 +7,7 @@
       <v-pagination
         v-model="page"
         :total-visible="10"
-        :length="data.length/10"
+        :length="Math.ceil(data.length/10)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
       ></v-pagination>
