@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex flex-wrap justify-center">
+    <div class="d-flex flex-wrap justify-center">      
       <div v-for="card in paginationData" :key="card.timestamp">
         <Card :card="card" @closeCard="closeCard" />
       </div>
