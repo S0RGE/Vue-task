@@ -19,7 +19,6 @@
 <script>
 import Cards from "./Cards.vue";
 import Tree from "./Tree.vue";
-// import TreeTest from "./TreeTest.vue";
 
 export default {
   props: ["sort"],
@@ -52,6 +51,7 @@ export default {
     },
     closeCard(timestamp) {
       this.dataSort = this.sortedData.filter((el) => el.timestamp != timestamp);
+      localStorage.setItem('Boro', JSON.stringify(this.dataSort))
     },
     async getData() {
       this.data = this.$store.getters.getData;
@@ -63,7 +63,6 @@ export default {
   computed: {
     sortedData() {
       let data = this.dataSort.length > 0 ? this.dataSort : this.data;
-      console.log("data", this.sort, data);
       return data.sort(this.sortMethod);
     },
   },
@@ -72,8 +71,8 @@ export default {
     Tree,
   },
   mounted() {
+    if(localStorage.Boro) this.data = JSON.parse(localStorage.Boro)
     this.$store.dispatch("fetchDataAsync");
-    console.log("sort this", this.sort);
   },
 };
 </script>

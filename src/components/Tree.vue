@@ -73,7 +73,7 @@ img {
 
 .thumbnail {
   padding: 5px;
-  width: 100px;
+  width: 150px;
   height: 100px;
 }
 
