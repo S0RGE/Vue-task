@@ -1,15 +1,22 @@
 <template>
-  <hello-world />
+  <v-app>
+    <Header />
+    <MainBody />
+    <Footer />
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
+import MainBody from "../components/MainBody.vue"
 
 export default {
   name: "Home",
-
   components: {
-    HelloWorld,
+    Footer,
+    Header,
+    MainBody
   },
 };
 </script>
