@@ -1,10 +1,16 @@
 <template>
   <div>
-    
     <div class="d-flex flex-wrap justify-center">
-      <div v-for="card in data" :key="card.timestamp">
+      <div v-for="card in paginationData" :key="card.timestamp">
         <Card :card="card" @closeCard="closeCard" />
       </div>
+      <v-pagination
+        v-model="page"
+        :total-visible="10"
+        :length="data.length/10"
+        prev-icon="mdi-menu-left"
+        next-icon="mdi-menu-right"
+      ></v-pagination>
     </div>
   </div>
 </template>
@@ -17,16 +23,24 @@ export default {
   data() {
     return {
       dataSort: [],
+      page: 1
     };
   },
-  methods: {    
+  methods: {
     closeCard(timestamp) {
-      this.$emit("closeCard", timestamp)
+      this.$emit("closeCard", timestamp);
     },
   },
   components: {
     Card,
   },
+  computed: {
+    paginationData(){
+      const start = this.page - 1;
+      const end = this.page + 9;
+      return this.data.slice(start, end)
+    }
+  }
 };
 </script>
 

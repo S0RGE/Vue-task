@@ -3,10 +3,10 @@
     <v-btn class="ma-3" @click="toggleButton" dark>{{
       toggleButtonText
     }}</v-btn>
-    <v-btn class="ma-3" @click="getData" dark
-      v-if="data.length <= 0"
-    >get data</v-btn>
-    <v-btn class="ma-3" @click="resetData" dark>reset data</v-btn>
+    <v-btn class="ma-3" @click="getData" dark v-if="data.length <= 0"
+      >get data</v-btn
+    >
+    <v-btn class="ma-3" @click="resetData" dark v-else>reset data</v-btn>
     <div v-if="toggleCards">
       <Cards :data="sortedData" @closeCard="closeCard" />
     </div>
