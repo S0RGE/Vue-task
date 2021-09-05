@@ -79,13 +79,16 @@ export default {
     //   console.log('loading', this.$store.getters.getLoading);
     //   return this.$store.getters.getLoading;
     // },
-  },  
+  },
   components: {
     Cards,
     Tree,
   },
   mounted() {
-    if (localStorage.Boro) this.data = JSON.parse(localStorage.Boro);
+    if (localStorage.Boro) {
+      this.data = JSON.parse(localStorage.Boro);
+      this.forceRender += 1;
+    }
   },
 };
 </script>
