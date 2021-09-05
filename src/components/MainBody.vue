@@ -14,7 +14,7 @@
       <Cards :data="sortedData" @closeCard="closeCard" />
     </div>
     <div v-else>
-      <Tree :data="sortedData" />
+      <Tree :data="sortedData" :key="forceRender" />
     </div>
   </div>
 </template>
@@ -32,6 +32,7 @@ export default {
       dataSort: [],
       toggleButtonText: "Tree to Card",
       loading: false,
+      forceRender: 0,
     };
   },
   methods: {
@@ -61,6 +62,7 @@ export default {
       this.loading = true;
       await this.$store.dispatch("fetchDataAsync");
       this.data = this.$store.getters.getData;
+      this.forceRender += 1;
       this.loading = false;
     },
     resetData() {
@@ -77,7 +79,7 @@ export default {
     //   console.log('loading', this.$store.getters.getLoading);
     //   return this.$store.getters.getLoading;
     // },
-  },
+  },  
   components: {
     Cards,
     Tree,
