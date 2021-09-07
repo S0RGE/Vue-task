@@ -14,14 +14,14 @@
       <Cards :data="sortedData" @closeCard="closeCard" />
     </div>
     <div v-else>
-      <Tree :data="sortedData" :key="forceRender" />
+      <Tree :data="sortedData" :key="forceRender" @closeCard="closeCard" />
     </div>
   </div>
 </template>
 
 <script>
-import Cards from "./Cards.vue";
-import Tree from "./Tree.vue";
+import Cards from "../components/Cards.vue";
+import Tree from "../components/Tree.vue";
 
 export default {
   props: ["sort"],
@@ -57,6 +57,7 @@ export default {
     closeCard(timestamp) {
       this.dataSort = this.sortedData.filter((el) => el.timestamp != timestamp);
       localStorage.setItem("Boro", JSON.stringify(this.dataSort));
+      // this.forceRender += 1;
     },
     async getData() {
       this.loading = true;
@@ -87,6 +88,7 @@ export default {
   mounted() {
     if (localStorage.Boro) {
       this.data = JSON.parse(localStorage.Boro);
+      this.dataSort = this.dataSort.length > 0 ? this.dataSort : this.data;
       this.forceRender += 1;
     }
   },

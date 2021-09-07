@@ -9,7 +9,7 @@
 <script>
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
-import MainBody from "../components/MainBody.vue"
+import MainBody from "./MainBody.vue"
 
 export default {
   name: "Home",
