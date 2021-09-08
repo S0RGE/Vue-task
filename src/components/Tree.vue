@@ -63,7 +63,12 @@ export default {
       showMenu: false,
       x: 0,
       y: 0,
-      menuItems: [{ title: "Delete" }],
+      menuItems: [
+        { title: "Delete" },
+        { title: "Destroy" },
+        { title: "Annigilate" },
+        { title: "Hide" },
+      ],
     };
   },
   methods: {
@@ -81,9 +86,9 @@ export default {
     },
     closeCard() {
       this.$emit("closeCard", this.item.timestamp);
-      this.item = {}
+      this.item = {};
     },
-    convertData(data){
+    convertData(data) {
       let dataItem = data || [];
       this.items = [];
       while (dataItem.length > 0) {
@@ -100,15 +105,15 @@ export default {
         );
       }
       return this.items;
-    }
+    },
   },
   computed: {
     computedData() {
-      return this.convertData(this.data)
+      return this.convertData(this.data);
     },
   },
   mounted() {
-    this.convertData(this.data)
+    this.convertData(this.data);
   },
 };
 </script>

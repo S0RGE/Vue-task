@@ -5,7 +5,7 @@
     </div>
     <v-img :src="cardImage" height="200px"> </v-img>
     <v-card-title> {{ card.category }} </v-card-title>
-    <v-card-subtitle> {{ cardText }} </v-card-subtitle>
+    <v-card-subtitle>timestamp: {{ card.timestamp }}<br>size: {{ card.filesize }}mb</v-card-subtitle>
   </v-card>
 </template>
 
@@ -16,7 +16,6 @@ export default {
   data() {
     return {
       cardImage: "http://contest.elecard.ru/frontend_data/" + this.card.image,
-      cardText: "Elecard. Video compression guru",
     };
   },
   methods: {
