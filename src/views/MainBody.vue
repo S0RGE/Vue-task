@@ -57,7 +57,6 @@ export default {
     closeCard(timestamp) {
       this.dataSort = this.sortedData.filter((el) => el.timestamp != timestamp);
       localStorage.setItem("Boro", JSON.stringify(this.dataSort));
-      // this.forceRender += 1;
     },
     async getData() {
       this.loading = true;
