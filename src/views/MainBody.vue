@@ -2,11 +2,8 @@
   <div>
     <v-btn class="ma-3" @click="toggleButton" dark>{{
       toggleButtonText
-    }}</v-btn>
-    <v-btn class="ma-3" @click="getData" dark v-if="data.length <= 0"
-      >get data</v-btn
-    >
-    <v-btn class="ma-3" @click="resetData" dark v-else>reset data</v-btn>
+    }}</v-btn>    
+    <v-btn class="ma-3" @click="resetData" dark >reset data</v-btn>
     <div class="text-center" v-if="loading">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </div>
@@ -14,7 +11,7 @@
       <Cards :data="sortedData" @closeCard="closeCard" />
     </div>
     <div v-else>
-      <Tree :data="sortedData" :key="forceRender" @closeCard="closeCard" />
+      <Tree :data="this.dataSort.length > 0 ? this.dataSort : this.data" :key="forceRender" @closeCard="closeCard" />
     </div>
   </div>
 </template>
@@ -57,16 +54,10 @@ export default {
     closeCard(timestamp) {
       this.dataSort = this.sortedData.filter((el) => el.timestamp != timestamp);
       localStorage.setItem("Boro", JSON.stringify(this.dataSort));
-    },
-    async getData() {
-      this.loading = true;
+    },   
+    async resetData() {
       await this.$store.dispatch("fetchDataAsync");
-      this.data = this.$store.getters.getData;
-      this.forceRender += 1;
-      this.loading = false;
-    },
-    resetData() {
-      this.dataSort = this.getData();
+      this.dataSort = this.$store.getters.getData;      
       localStorage.removeItem("Boro");
     },
   },
@@ -84,12 +75,17 @@ export default {
     Cards,
     Tree,
   },
-  mounted() {
+  async mounted() {
+    this.loading = true;
     if (localStorage.Boro) {
       this.data = JSON.parse(localStorage.Boro);
       this.dataSort = this.dataSort.length > 0 ? this.dataSort : this.data;
-      this.forceRender += 1;
+    } else {
+      await this.$store.dispatch("fetchDataAsync");
+      this.data = this.$store.getters.getData;
     }
+    this.forceRender += 1;
+    this.loading = false;
   },
 };
 </script>

@@ -4,8 +4,8 @@
       <v-icon @click="closeCard">mdi-close</v-icon>
     </div>
     <v-img :src="cardImage" height="200px"> </v-img>
-    <v-card-title> {{ card.category }} </v-card-title>
-    <v-card-subtitle>timestamp: {{ card.timestamp }}<br>size: {{ card.filesize }}mb</v-card-subtitle>
+    <v-card-title> {{ card.image.split('-')[0].split('/')[1] + "  " +  card.image.split('-').slice(1, card.image.split('-').length-1).join(' ') }} </v-card-title>
+    <v-card-subtitle>Category: {{ card.category}} <br> Date: {{new Date(card.timestamp).toLocaleString().substring(0,10) }}<br>size: {{ (card.filesize/10240).toFixed(2) }}mb</v-card-subtitle>
   </v-card>
 </template>
 

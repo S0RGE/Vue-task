@@ -9,7 +9,7 @@
       <v-pagination
         v-model="page"
         :total-visible="10"
-        :length="Math.ceil(data.length / 10)"
+        :length="paginationLength"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
       ></v-pagination>
@@ -42,14 +42,18 @@ export default {
       const end = (this.page - 1) * 10 + 10;
       return this.data.slice(start, end);
     },
+    paginationLength() {
+      return Math.ceil(this.data.length / 10);
+    },
+  },
+  watch: {
+    paginationLength: function () {
+      if (this.page > this.paginationLength) {
+        this.page = this.paginationLength;
+      }
+    },
   },
 };
 </script>
 
-<style>
-.pagination {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-</style>
+<style></style>

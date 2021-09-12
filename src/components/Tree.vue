@@ -22,13 +22,13 @@
             height="250"
             :src="`http://contest.elecard.ru/frontend_data/${item.image}`"
           ></v-img>
-          <v-card-title>{{ item.category }}</v-card-title>
+          <v-card-title>{{ item.image.split('-')[0].split('/')[1].trim() + "  " +  item.image.split('-').slice(1, item.image.split('-').length-1).join(' ') }}</v-card-title>
           <v-card-text>
             <div class="grey--text ms-4">
-              timestamp: &nbsp; {{ item.timestamp }}
+              timestamp: &nbsp; {{ new Date(item.timestamp).toLocaleString().substring(0,10) }}
             </div>
             <div class="grey--text ms-4">
-              filesize: &nbsp; {{ item.filesize }}mb
+              filesize: &nbsp; {{ (item.filesize/10240).toFixed(2) }}mb
             </div>
           </v-card-text>
         </v-card>
