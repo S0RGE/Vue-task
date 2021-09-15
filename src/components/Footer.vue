@@ -5,7 +5,7 @@
          {{ link.name }}
       </v-btn>
       <v-col dark class="py-4 text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        {{ new Date().getFullYear() }} — <strong>Boro</strong>
       </v-col>
     </v-row>
   </v-footer>

@@ -9,7 +9,7 @@
         flat
         dark
         hide-details
-        :items="sortKeys"
+        :items="Object.keys(keys)"
       ></v-select>
     </div>
     <v-divider></v-divider>
@@ -20,19 +20,19 @@
 export default {
   data() {
     return {
-      keys: [
-        { name: "Category", value: "category" },
-        { name: "Date time", value: "timestamp" },
-        { name: "File size", value: "filesize" },
-        { name: "Name", value: "image" },
-      ],
+      keys:{
+        "Category": "category",
+        "Date time": "timestamp",
+        "File size": "filesize",
+        "Name": "image"
+      },
       sortBy: "category",
       data: [],
     };
   },
   methods: {
     sortSelect() {
-      this.$emit("SortItems", this.keys.find(key => (key.name === this.sortBy)).value);
+      this.$emit("SortItems", this.keys[this.sortBy]); 
     },
   },
   computed:{
