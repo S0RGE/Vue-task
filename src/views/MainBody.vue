@@ -12,9 +12,8 @@
     </div>
     <div v-else>
       <Tree
-        :data="this.dataSort.length > 0 ? this.dataSort : this.data"
+        :data="data"
         :key="forceRender"
-        @closeCard="closeCard"
       />
     </div>
   </div>

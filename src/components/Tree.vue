@@ -22,34 +22,26 @@
             height="250"
             :src="`http://contest.elecard.ru/frontend_data/${item.image}`"
           ></v-img>
-          <v-card-title>{{ item.image.split('-')[0].split('/')[1].trim() + "  " +  item.image.split('-').slice(1, item.image.split('-').length-1).join(' ') }}</v-card-title>
+          <v-card-title>{{
+            item.image.split("-")[0].split("/")[1].trim() +
+            "  " +
+            item.image
+              .split("-")
+              .slice(1, item.image.split("-").length - 1)
+              .join(" ")
+          }}</v-card-title>
           <v-card-text>
             <div class="grey--text ms-4">
-              timestamp: &nbsp; {{ new Date(item.timestamp).toLocaleString().substring(0,10) }}
+              timestamp: &nbsp;
+              {{ new Date(item.timestamp).toLocaleString().substring(0, 10) }}
             </div>
             <div class="grey--text ms-4">
-              filesize: &nbsp; {{ (item.filesize/10240).toFixed(2) }}mb
+              filesize: &nbsp; {{ (item.filesize / 10240).toFixed(2) }}mb
             </div>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
-
-    <v-menu
-      v-model="showMenu"
-      :position-x="x"
-      :position-y="y"
-      absolute
-      offset-y
-    >
-      <v-list>
-        <v-list-item v-for="(item, index) in menuItems" :key="index">
-          <v-list-item-title style="cursor: pointer" @click="closeCard">{{
-            item.title
-          }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
   </v-card>
 </template>
 
@@ -60,15 +52,6 @@ export default {
     return {
       items: [],
       item: {},
-      showMenu: false,
-      x: 0,
-      y: 0,
-      menuItems: [
-        { title: "Delete" },
-        { title: "Destroy" },
-        { title: "Annigilate" },
-        { title: "Hide" },
-      ],
     };
   },
   methods: {
@@ -83,10 +66,6 @@ export default {
       this.$nextTick(() => {
         this.showMenu = true;
       });
-    },
-    closeCard() {
-      this.$emit("closeCard", this.item.timestamp);
-      this.item = {};
     },
     convertData(data) {
       let dataItem = data || [];
