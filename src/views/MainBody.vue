@@ -2,8 +2,8 @@
   <div>
     <v-btn class="ma-3" @click="toggleButton" dark>{{
       toggleButtonText
-    }}</v-btn>    
-    <v-btn class="ma-3" @click="resetData" dark >reset data</v-btn>
+    }}</v-btn>
+    <v-btn class="ma-3" @click="resetData" dark>reset data</v-btn>
     <div class="text-center" v-if="loading">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </div>
@@ -11,7 +11,11 @@
       <Cards :data="sortedData" @closeCard="closeCard" />
     </div>
     <div v-else>
-      <Tree :data="this.dataSort.length > 0 ? this.dataSort : this.data" :key="forceRender" @closeCard="closeCard" />
+      <Tree
+        :data="this.dataSort.length > 0 ? this.dataSort : this.data"
+        :key="forceRender"
+        @closeCard="closeCard"
+      />
     </div>
   </div>
 </template>
@@ -52,12 +56,18 @@ export default {
       return 0;
     },
     closeCard(timestamp) {
-      this.dataSort = this.sortedData.filter((el) => el.timestamp != timestamp);
-      localStorage.setItem("Boro", JSON.stringify(this.dataSort));
-    },   
+      if(localStorage.Boro){
+        localStorage.Boro += JSON.stringify(this.dataSort.find((el) => el.timestamp === timestamp))
+      } else {
+        localStorage.setItem("Boro", JSON.stringify(this.dataSort.find((el) => el.timestamp === timestamp)))
+      }
+      console.log("local", localStorage.Boro)
+      this.dataSort = this.sortedData.filter((el) => el.timestamp != timestamp)
+      // localStorage.setItem("Boro", JSON.stringify(this.dataSort))
+    },
     async resetData() {
       await this.$store.dispatch("fetchDataAsync");
-      this.dataSort = this.$store.getters.getData;      
+      this.dataSort = this.$store.getters.getData;
       localStorage.removeItem("Boro");
     },
   },
@@ -77,13 +87,15 @@ export default {
   },
   async mounted() {
     this.loading = true;
-    if (localStorage.Boro) {
-      this.data = JSON.parse(localStorage.Boro);
-      this.dataSort = this.dataSort.length > 0 ? this.dataSort : this.data;
-    } else {
-      await this.$store.dispatch("fetchDataAsync");
-      this.data = this.$store.getters.getData;
-    }
+    // if (localStorage.Boro) {
+    //   this.data = JSON.parse(localStorage.Boro);
+    //   this.dataSort = this.dataSort.length > 0 ? this.dataSort : this.data;
+    // } else {
+    //   await this.$store.dispatch("fetchDataAsync");
+    //   this.data = this.$store.getters.getData;
+    // }
+    await this.$store.dispatch("fetchDataAsync");
+    this.data = this.$store.getters.getData;
     this.forceRender += 1;
     this.loading = false;
   },

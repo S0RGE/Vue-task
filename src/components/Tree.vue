@@ -94,6 +94,7 @@ export default {
       while (dataItem.length > 0) {
         this.items.push({
           name: dataItem[0].category,
+          id: dataItem[0].timestamp,
           children: [
             ...dataItem.filter(
               (item) => item.category === dataItem[0].category
