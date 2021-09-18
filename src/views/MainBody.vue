@@ -56,18 +56,16 @@ export default {
     },
     closeCard(timestamp) {
       if(localStorage.Boro){
-        localStorage.Boro += JSON.stringify(this.dataSort.find((el) => el.timestamp === timestamp))
+        localStorage.Boro += JSON.stringify(this.sortedData.find((el) => el.timestamp === timestamp))
       } else {
-        localStorage.setItem("Boro", JSON.stringify(this.dataSort.find((el) => el.timestamp === timestamp)))
+        localStorage.Boro =  JSON.stringify(this.sortedData.find((el) => el.timestamp === timestamp))
       }
-      console.log("local", localStorage.Boro)
       this.dataSort = this.sortedData.filter((el) => el.timestamp != timestamp)
-      // localStorage.setItem("Boro", JSON.stringify(this.dataSort))
     },
     async resetData() {
       await this.$store.dispatch("fetchDataAsync");
       this.dataSort = this.$store.getters.getData;
-      localStorage.removeItem("Boro");
+      localStorage.Boro = "";
     },
   },
   computed: {
