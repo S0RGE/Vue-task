@@ -65,7 +65,7 @@ export default {
     async resetData() {
       await this.$store.dispatch("fetchDataAsync");
       this.dataSort = this.$store.getters.getData;
-      localStorage.Boro = "";
+      localStorage.removeItem("Boro");
     },
   },
   computed: {
